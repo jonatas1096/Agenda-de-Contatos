@@ -10,7 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.ui.theme.AgendaDeContatosTheme
+import com.example.agendadecontatos.views.listaContatos
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +29,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Main() {
-    Text(text = "a")
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "listaContatos"){
+        composable("listaContatos"){
+            listaContatos(navController)
+        }
+    }
 }
 
 @Preview(showBackground = true)

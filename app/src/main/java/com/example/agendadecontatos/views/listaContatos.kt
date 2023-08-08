@@ -44,21 +44,31 @@ fun listaContatos(navController : NavController){
                 )
             }
         ) {
-            ConstraintLayout() {
+            ConstraintLayout(
+
+            ) {
                 val (novocontatobotao)= createRefs()
 
-            }
-            FloatingActionButton(onClick = {
+                FloatingActionButton(onClick = {
 
-            }, //to tentando adicionar um modifier aqui p usar parent nele
-                backgroundColor = Color(0xFF01A0A0),
+                }, //to tentando adicionar um modifier aqui p usar parent nele
+                    backgroundColor = Color(0xFF01A0A0),
+
+                    modifier = Modifier.constrainAs(novocontatobotao){
+                        start.linkTo(parent.start, margin = 20.dp)
+                        bottom.linkTo(parent.bottom)
+
+                    }
 
                 ) {
-                Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_novocontato),
-                    contentDescription = "a",
-                    modifier = Modifier.size(30.dp)
-                )
+                    Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_novocontato),
+                        contentDescription = "a",
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+
             }
+
         }
     }
 

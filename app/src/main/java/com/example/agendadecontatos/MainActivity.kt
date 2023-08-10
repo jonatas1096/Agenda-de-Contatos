@@ -14,7 +14,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.ui.theme.AgendaDeContatosTheme
+import com.example.agendadecontatos.views.atualizarContatos
 import com.example.agendadecontatos.views.listaContatos
+import com.example.agendadecontatos.views.salvarContatos
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +36,14 @@ fun Main() {
     NavHost(navController = navController, startDestination = "listaContatos"){
         composable("listaContatos"){
             listaContatos(navController)
+        }
+
+        composable("salvarContatos"){
+            salvarContatos(navController)
+        }
+
+        composable("atualizarContatos"){
+            atualizarContatos(navController)
         }
     }
 }

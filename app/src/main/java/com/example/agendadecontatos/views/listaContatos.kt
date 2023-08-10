@@ -27,9 +27,6 @@ import com.example.agendadecontatos.R
 @Composable
 fun listaContatos(navController : NavController){
 
-    Column(
-
-    ) {
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -42,35 +39,25 @@ fun listaContatos(navController : NavController){
                     backgroundColor = Color(0xFF01A0A0),
                     contentColor = Color.White,
                 )
-            }
-        ) {
-            ConstraintLayout(
-
-            ) {
-                val (novocontatobotao)= createRefs()
-
+            },
+            floatingActionButton = {
                 FloatingActionButton(onClick = {
-
-                }, //to tentando adicionar um modifier aqui p usar parent nele
+                    navController.navigate("salvarContatos")
+                },
                     backgroundColor = Color(0xFF01A0A0),
 
-                    modifier = Modifier.constrainAs(novocontatobotao){
-                        start.linkTo(parent.start, margin = 20.dp)
-                        bottom.linkTo(parent.bottom)
-
-                    }
-
-                ) {
-                    Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_novocontato),
+                    ) {
+                    Image(imageVector = ImageVector.vectorResource(id = R.drawable.ic_add),
                         contentDescription = "a",
                         modifier = Modifier.size(30.dp)
                     )
                 }
-
             }
+        ) {
+
 
         }
-    }
+
 
 }
 

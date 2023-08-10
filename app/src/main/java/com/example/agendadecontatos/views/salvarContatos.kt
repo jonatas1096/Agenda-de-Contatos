@@ -4,15 +4,20 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,15 +50,23 @@ fun salvarContatos(navController: NavController){
             )
         },
     ) {
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
+        }
+
         Column(
 
         ) {
+
             //Textfield para o Nome (vem pré-pronto da classe layoutsProntos).
             OutlinedPersonalizado(
                 value = nome,
                 onValueChange = {nome = it},
                 label = {
-                        Text(text = "Nome")
+                        Text(text = "Nome",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -62,6 +75,7 @@ fun salvarContatos(navController: NavController){
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
                     .padding(top = 60.dp)
+                    
             )
 
             //Textfield para o Sobrenome
@@ -69,7 +83,9 @@ fun salvarContatos(navController: NavController){
                 value = sobrenome,
                 onValueChange = {sobrenome = it},
                 label = {
-                    Text(text = "Sobrenome")
+                    Text(text = "Sobrenome",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -85,7 +101,9 @@ fun salvarContatos(navController: NavController){
                 value = idade,
                 onValueChange = {idade = it},
                 label = {
-                    Text(text = "Idade")
+                    Text(text = "Idade",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -101,7 +119,9 @@ fun salvarContatos(navController: NavController){
                 value = numero,
                 onValueChange = {numero = it},
                 label = {
-                    Text(text = "Número")
+                    Text(text = "Número",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Phone
@@ -140,7 +160,7 @@ fun salvarContatos(navController: NavController){
                 nomeBotao = "Salvar",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 120.dp),
+                    .padding(horizontal = 148.dp),
 
             )
         }

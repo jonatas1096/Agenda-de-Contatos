@@ -32,14 +32,6 @@ import com.bumptech.glide.integration.compose.GlideImage
 @Composable
 fun listaContatos(navController : NavController){
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .border(2.dp, Color.Black)
-    ) {
-
-        carregarBackground(path = "")
-        
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -67,18 +59,20 @@ fun listaContatos(navController : NavController){
                 }
             }
         ) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
+            }
 
 
         }
     }
 
 
-
-}
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun carregarBackground(path: String){
-    GlideImage(model = path, contentDescription = "")
+    GlideImage(model = path, contentDescription = "",
+    modifier = Modifier.fillMaxSize())
 }
 
 @Preview(showBackground = true)

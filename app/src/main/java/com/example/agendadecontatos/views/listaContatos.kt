@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.R
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.ui.layout.ContentScale
 import com.bumptech.glide.Glide
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -43,6 +44,7 @@ fun listaContatos(navController : NavController){
                     },
                     backgroundColor = Color(0xFF01A0A0),
                     contentColor = Color.White,
+
                 )
             },
             floatingActionButton = {
@@ -57,7 +59,7 @@ fun listaContatos(navController : NavController){
                         modifier = Modifier.size(30.dp)
                     )
                 }
-            }
+            },
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
                 carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
@@ -72,6 +74,7 @@ fun listaContatos(navController : NavController){
 @Composable
 fun carregarBackground(path: String){
     GlideImage(model = path, contentDescription = "",
+        contentScale = ContentScale.Crop,
     modifier = Modifier.fillMaxSize())
 }
 

@@ -49,10 +49,12 @@ fun salvarContatos(navController: NavController){
                 contentColor = Color.White,
             )
         },
+        modifier = Modifier.fillMaxSize()
     ) {
 
         Box(modifier = Modifier.fillMaxSize()) {
             carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
+
         }
 
         Column(

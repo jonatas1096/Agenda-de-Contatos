@@ -2,8 +2,8 @@ package com.example.agendadecontatos.views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -13,20 +13,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.R
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import com.bumptech.glide.Glide
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun listaContatos(navController : NavController){
 
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .border(2.dp, Color.Black)
+    ) {
+
+        carregarBackground(path = "")
+        
         Scaffold(
             topBar = {
                 TopAppBar(
@@ -57,8 +70,15 @@ fun listaContatos(navController : NavController){
 
 
         }
+    }
 
 
+
+}
+@OptIn(ExperimentalGlideComposeApi::class)
+@Composable
+fun carregarBackground(path: String){
+    GlideImage(model = path, contentDescription = "")
 }
 
 @Preview(showBackground = true)

@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.views.salvarContatos
 
@@ -48,7 +49,8 @@ fun BotaoPersonalizado(onClick: () -> Unit,nomeBotao:String, modifier: Modifier)
         )
 
     ) {
-        Text(text = nomeBotao)
+        Text(text = nomeBotao,
+        fontSize = 20.sp)
     }
 }
 

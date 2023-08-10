@@ -61,7 +61,7 @@ fun salvarContatos(navController: NavController){
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 40.dp)
-                    .padding(top = 70.dp)
+                    .padding(top = 60.dp)
             )
 
             //Textfield para o Sobrenome
@@ -128,11 +128,12 @@ fun salvarContatos(navController: NavController){
                             Toast.makeText(context,"Preencha a idade, Bakayaro, Konoyaro!",Toast.LENGTH_SHORT).show()
                         }
                             else if (numero.isEmpty()){
-                                Toast.makeText(context,"Preencha o número, cabeça de vento!",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context,"Coloca o número da gata lá",Toast.LENGTH_SHORT).show()
                             }
-
-
-
+                                else{
+                                    Toast.makeText(context,"Finalmente. Contato salvo com sucesso.",Toast.LENGTH_SHORT).show()
+                                    navController.navigate("listaContatos")
+                                }
 
 
             },

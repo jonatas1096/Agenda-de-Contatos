@@ -24,13 +24,23 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.agendadecontatos.AppDatabase
+import com.example.agendadecontatos.dao.ContatoDao
+import com.example.agendadecontatos.model.Contato
 import com.example.agendadecontatos.views.layouts.BotaoPersonalizado
 import com.example.agendadecontatos.views.layouts.OutlinedPersonalizado
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
+private lateinit var contatoDao: ContatoDao
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun salvarContatos(navController: NavController){
+
+    val listaContatos: MutableList<Contato> = mutableListOf()
+    val scope = rememberCoroutineScope()
+
 
     var nome by remember{ mutableStateOf("") }
     var sobrenome by remember { mutableStateOf("") }
@@ -138,26 +148,48 @@ fun salvarContatos(navController: NavController){
 
             //Botão Padronizado:
             BotaoPersonalizado(
-                onClick = { //primeiro uma validação para garantir que todos os dados estejam preenchidos:
-                if (nome.isEmpty() && sobrenome.isEmpty() && idade.isEmpty() && numero.isEmpty()){
-                    Toast.makeText(context,"Preencha todos os dados, PREGUIÇOSO(A)!",Toast.LENGTH_SHORT).show()
-                }
-                else if (nome.isEmpty()){
-                    Toast.makeText(context,"Preencha o nome, seu jacaré.",Toast.LENGTH_SHORT).show()
-                }
-                   else if (sobrenome.isEmpty()){
-                        Toast.makeText(context,"Preencha o Sobrenome, jovem marsupial!",Toast.LENGTH_SHORT).show()
-                    }
-                        else if (idade.isEmpty()){
-                            Toast.makeText(context,"Preencha a idade, Bakayaro, Konoyaro!",Toast.LENGTH_SHORT).show()
-                        }
-                            else if (numero.isEmpty()){
-                                Toast.makeText(context,"Coloca o número da gata lá",Toast.LENGTH_SHORT).show()
+                onClick = {
+                        scope.launch(Dispatchers.IO){
+                            var mensagem = false
+
+                            if (nome.isEmpty()|| sobrenome.isEmpty() || idade.isEmpty() || numero.isEmpty()){
+                                mensagem = false
                             }
-                                else{
+                            else{
+                                mensagem = true
+                                val contato = Contato(nome, sobrenome, idade, numero)
+                                mensagem = true
+                                listaContatos.add(contato)
+                                contatoDao = AppDatabase.getInstance(context).contatoDao()
+                                contatoDao.salvar(listaContatos)
+
+                            }
+
+                            scope.launch(Dispatchers.Main){
+                                //primeiro uma validação para garantir que todos os dados estejam preenchidos:
+                                if (mensagem){
                                     Toast.makeText(context,"Finalmente. Contato salvo com sucesso.",Toast.LENGTH_SHORT).show()
                                     navController.navigate("listaContatos")
                                 }
+                                else if (nome.isEmpty() && sobrenome.isEmpty() && idade.isEmpty() && numero.isEmpty()){
+                                    Toast.makeText(context,"Preencha todos os dados, PREGUIÇOSO(A)!",Toast.LENGTH_SHORT).show()
+                                }
+                                else if (nome.isEmpty()){
+                                    Toast.makeText(context,"Preencha o nome, seu jacaré.",Toast.LENGTH_SHORT).show()
+                                }
+                                else if (sobrenome.isEmpty()){
+                                    Toast.makeText(context,"Preencha o Sobrenome, jovem marsupial!",Toast.LENGTH_SHORT).show()
+                                }
+                                else if (idade.isEmpty()){
+                                    Toast.makeText(context,"Preencha a idade, Bakayaro, Konoyaro!",Toast.LENGTH_SHORT).show()
+                                }
+                                else if (numero.isEmpty()){
+                                    Toast.makeText(context,"Coloca o número da gata lá",Toast.LENGTH_SHORT).show()
+                                }
+                            }
+
+                        }
+
 
 
             },

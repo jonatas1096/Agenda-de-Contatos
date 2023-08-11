@@ -1,5 +1,7 @@
 package com.example.agendadecontatos.views.layouts
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -7,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.views.salvarContatos
@@ -40,7 +43,9 @@ fun OutlinedPersonalizado(value: String,
 @Composable
 fun BotaoPersonalizado(onClick: () -> Unit,nomeBotao:String, modifier: Modifier){ //mesma lógica aqui. Vou pré-criar o máximo de coisas que se repetem para poupar código
     Button(onClick = onClick,
-            modifier = modifier,
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = 155.dp)
+                .padding(top = 30.dp),
 
         //a cor vai vim padronizada, é só chamar que vai vir desta forma:
         colors = ButtonDefaults.buttonColors(

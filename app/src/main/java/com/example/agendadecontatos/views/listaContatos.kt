@@ -62,7 +62,7 @@ fun listaContatos(navController : NavController){
             },
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
+                carregarBackground(path = "")
             }
 
 

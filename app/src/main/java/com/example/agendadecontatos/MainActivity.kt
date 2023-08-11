@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
 fun Main() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "listaContatos"){
+    NavHost(navController = navController, startDestination = "atualizarContatos"){
         composable("listaContatos"){
             listaContatos(navController)
         }

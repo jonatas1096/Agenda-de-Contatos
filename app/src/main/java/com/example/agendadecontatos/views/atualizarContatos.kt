@@ -2,6 +2,7 @@ package com.example.agendadecontatos.views
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,9 +14,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.views.layouts.BotaoPersonalizado
@@ -36,7 +39,8 @@ fun atualizarContatos(navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Atualize o Contato")
+                title = { Text(text = "Atualize o Contato",
+                fontSize = 25.sp)
                 },
                 backgroundColor = Color(0xFF01A0A0),
                 contentColor = Color.White,
@@ -44,13 +48,20 @@ fun atualizarContatos(navController: NavController){
         }
     ) {
 
+        //Coloquei a imgem antes da column para ela ficar atrás sozinha e tudo sobrepor ela
+        Box(){
+            carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/background.jpeg")
+        }
         //Column para deixar todos os elementos um abaixo do outro.
         Column() {
             OutlinedPersonalizado(
                 value = nome,
                 onValueChange = { nome = it },
                 label = {
-                    Text(text = "Nome")
+                    Text(text = "Nome",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
+
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -66,7 +77,9 @@ fun atualizarContatos(navController: NavController){
                 value = sobrenome,
                 onValueChange = {sobrenome = it},
                 label = {
-                    Text(text = "Sobrenome")
+                    Text(text = "Sobrenome",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text
@@ -82,7 +95,9 @@ fun atualizarContatos(navController: NavController){
                 value = idade,
                 onValueChange = {idade = it},
                 label = {
-                    Text(text = "Idade")
+                    Text(text = "Idade",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Number
@@ -98,7 +113,9 @@ fun atualizarContatos(navController: NavController){
                 value = numero,
                 onValueChange = {numero = it},
                 label = {
-                    Text(text = "Número")
+                    Text(text = "Número",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold)
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Phone

@@ -23,12 +23,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.agendadecontatos.AppDatabase
+import com.example.agendadecontatos.dao.ContatoDao
 import com.example.agendadecontatos.views.layouts.BotaoPersonalizado
 import com.example.agendadecontatos.views.layouts.OutlinedPersonalizado
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+private lateinit var contatoDao: ContatoDao
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun atualizarContatos(navController: NavController){
+fun atualizarContatos(navController: NavController, uid: String){
 
     var nome by remember { mutableStateOf("") }
     var sobrenome by remember { mutableStateOf("") }
@@ -36,6 +42,8 @@ fun atualizarContatos(navController: NavController){
     var numero by remember { mutableStateOf("") }
 
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
 
 
     Scaffold(
@@ -132,26 +140,52 @@ fun atualizarContatos(navController: NavController){
 
             //Botão Padronizado:
             BotaoPersonalizado(
-                onClick = { //primeiro uma validação para garantir que todos os dados estejam preenchidos:
-                    if (nome.isEmpty() && sobrenome.isEmpty() && idade.isEmpty() && numero.isEmpty()){
-                        Toast.makeText(context,"Você não aprende?", Toast.LENGTH_SHORT).show()
+
+                    onClick = { //primeiro uma validação para garantir que todos os dados estejam preenchidos:
+                        println("Valor de uid: $uid")
+
+
+                    scope.launch (Dispatchers.IO){
+
+                        var mensagem = false
+
+                        if (nome.isEmpty() || sobrenome.isEmpty() || idade.isEmpty() || numero.isEmpty()){
+                            mensagem = false
+                        }
+                        else{
+                            mensagem = true
+
+                            val uid = uid.replace("{", "").replace("}", "").trim() //chatgpt me ajudou a corrigir um erro com o valor do uid. Tava quebrando porque ele vinha com um valor zuado.
+                            contatoDao = AppDatabase.getInstance(context).contatoDao()
+                            contatoDao.atualizar(uid.toInt(),nome,sobrenome,idade,numero)
+
+
+                        }
+
+                        scope.launch (Dispatchers.Main){
+                            if (mensagem){
+                                Toast.makeText(context,"Está atualizado, Antílope.", Toast.LENGTH_SHORT).show()
+                                navController.navigate("listaContatos")
+                            }
+                            if (nome.isEmpty() && sobrenome.isEmpty() && idade.isEmpty() && numero.isEmpty()){
+                                Toast.makeText(context,"Você não aprende?",Toast.LENGTH_SHORT).show()
+                            }
+                            else if (nome.isEmpty()){
+                                Toast.makeText(context,"Vai saber quem é sem um nome?",Toast.LENGTH_SHORT).show()
+                            }
+                            else if (sobrenome.isEmpty()){
+                                Toast.makeText(context,"O sobrenome, amigo. O SOBRENOME.",Toast.LENGTH_SHORT).show()
+                            }
+                            else if (idade.isEmpty()){
+                                Toast.makeText(context,"Todo mundo tem idade, ajuda aí né?",Toast.LENGTH_SHORT).show()
+                            }
+                            else if (numero.isEmpty()){
+                                Toast.makeText(context,"Voodu é pra jacu.",Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
-                    else if (nome.isEmpty()){
-                        Toast.makeText(context,"O nome, filho. O NOME.", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (sobrenome.isEmpty()){
-                        Toast.makeText(context,"Todo mundo tem um sobrenome, vai, coloca. COLOCA!", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (idade.isEmpty()){
-                        Toast.makeText(context,"aaaaaaaaaaaaaaaaaaaa", Toast.LENGTH_SHORT).show()
-                    }
-                    else if (numero.isEmpty()){
-                        Toast.makeText(context,"Preencha o número, cabeça de vento.", Toast.LENGTH_SHORT).show()
-                    }
-                    else{
-                        Toast.makeText(context,"Está atualizado, Antílope.", Toast.LENGTH_SHORT).show()
-                        navController.navigate("listaContatos")
-                    }
+
+
 
 
                 },
@@ -165,8 +199,9 @@ fun atualizarContatos(navController: NavController){
 
 }
 
+
 @Preview(showBackground = true)
 @Composable
 private fun atualizarPreview(){
-    atualizarContatos(rememberNavController())
+    atualizarContatos(rememberNavController(), uid = "")
 }

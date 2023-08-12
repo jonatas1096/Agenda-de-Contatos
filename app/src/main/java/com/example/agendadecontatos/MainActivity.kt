@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.agendadecontatos.ui.theme.AgendaDeContatosTheme
 import com.example.agendadecontatos.views.atualizarContatos
 import com.example.agendadecontatos.views.listaContatos
@@ -42,8 +43,10 @@ fun Main() {
             salvarContatos(navController)
         }
 
-        composable("atualizarContatos"){
-            atualizarContatos(navController)
+        composable("atualizarContatos/{uid}",
+            arguments = listOf(navArgument("uid"){})
+        ){
+            atualizarContatos(navController, it.arguments?.getString("uid").toString())
         }
     }
 }

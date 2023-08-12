@@ -15,5 +15,6 @@ data class Contato (
 
     @PrimaryKey(autoGenerate = true)
     var usuarioID: Int = 0
+
 )
 

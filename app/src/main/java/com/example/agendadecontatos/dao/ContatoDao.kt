@@ -15,7 +15,7 @@ interface ContatoDao {
     fun listar() : MutableList<Contato>
 
     @Query("UPDATE tabela_contatos SET nome = :novoNome, sobrenome = :novoSobrenome, idade = :novaIdade, numero = :novoNumero WHERE usuarioID = :id")
-    fun atualizar(id: Int, novoNome: String, novoSobrenome: String, novaIdade: Int, novoNumero: Int)
+    fun atualizar(id: Int, novoNome: String, novoSobrenome: String, novaIdade: String, novoNumero: String)
 
 
     @Query("DELETE FROM tabela_contatos WHERE usuarioID = :id")

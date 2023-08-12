@@ -1,6 +1,7 @@
 package com.example.agendadecontatos.views
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -22,16 +23,39 @@ import androidx.navigation.compose.rememberNavController
 import com.example.agendadecontatos.R
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.layout.ContentScale
-import com.bumptech.glide.Glide
+import androidx.compose.ui.platform.LocalContext
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import com.example.agendadecontatos.AppDatabase
+import com.example.agendadecontatos.dao.ContatoDao
+import com.example.agendadecontatos.model.Contato
+import com.example.agendadecontatos.views.layouts.novoContato
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
+private  lateinit var contatoDao: ContatoDao
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
 fun listaContatos(navController : NavController){
+
+    val context = LocalContext.current
+    val listaContatos: MutableList<Contato> = mutableListOf()
+    val scope = rememberCoroutineScope()
+
+    scope.launch(Dispatchers.IO){
+        contatoDao = AppDatabase.getInstance(context).contatoDao()
+        val contatos = contatoDao.listar()
+
+        for (contato in contatos){
+            listaContatos.add(contato)
+        }
+    }
 
         Scaffold(
             topBar = {
@@ -65,6 +89,11 @@ fun listaContatos(navController : NavController){
                 carregarBackground(path = "https://raw.githubusercontent.com/jonatas1096/Agenda-de-Contatos/master/app/src/main/res/drawable/backgroundprincipal.jpg")
             }
 
+            LazyColumn {
+                itemsIndexed(listaContatos){position, item ->
+                    novoContato(navController, position, listaContatos, context)
+                }
+            }
 
         }
     }
@@ -78,8 +107,9 @@ fun carregarBackground(path: String){
     modifier = Modifier.fillMaxSize())
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun ContatosPreview(){
     listaContatos(navController = rememberNavController())
-}
+}*/

@@ -155,9 +155,8 @@ fun atualizarContatos(navController: NavController){
 
 
                 },
-                nomeBotao = "Salvar as",
-                modifier = Modifier
-                    .fillMaxWidth(),
+                nomeBotao = "Salvar as alterações",
+
 
                 )
         }

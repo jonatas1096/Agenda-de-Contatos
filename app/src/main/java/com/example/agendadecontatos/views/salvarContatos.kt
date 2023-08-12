@@ -194,9 +194,7 @@ fun salvarContatos(navController: NavController){
 
             },
                 nomeBotao = "Salvar",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 148.dp),
+
 
             )
         }

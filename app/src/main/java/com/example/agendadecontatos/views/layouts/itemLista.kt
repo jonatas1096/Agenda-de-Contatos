@@ -43,11 +43,11 @@ fun novoContato(
     Card(
         backgroundColor = Color.White,
         contentColor = Color.Black,
-        elevation = 10.dp,
+        elevation = 5.dp,
         shape = RoundedCornerShape(30.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp, 20.dp, 20.dp, 35.dp)
+            .padding(20.dp, 20.dp, 20.dp, 5.dp)
     ) {
         ConstraintLayout(
             modifier = Modifier.padding(20.dp)
